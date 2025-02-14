@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenGLTest", "OpenGLTest\OpenGLTest.csproj", "{0FBE8A00-D2D6-487E-9F38-DAA55692ECA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenGLTemplate", "OpenGLTemplate\OpenGLTemplate.csproj", "{0FBE8A00-D2D6-487E-9F38-DAA55692ECA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
