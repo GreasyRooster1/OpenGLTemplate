@@ -7,28 +7,42 @@ namespace OpenGLTest;
 
 class Game : GameWindow
 {
-    private float[] vertices =
+    private readonly float[] vertices =
     {
         -0.5f, -0.5f, 0.0f, //Bottom-left vertex
         0.5f, -0.5f, 0.0f, //Bottom-right vertex
         0.0f, 0.5f, 0.0f //Top vertex
     };
-    int VertexBufferObject;
-        
+    int vertexBufferObject;
+    int vertexArrayObject;
+    Shader shader;
+
     public Game(int width, int height, string title) : base(GameWindowSettings.Default,
         new NativeWindowSettings() { Size = (width, height), Title = title })
     {
-        
     }
-    
+
     protected override void OnLoad()
     {
         base.OnLoad();
-        
-        VertexBufferObject = GL.GenBuffer();
-        GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
-        GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+
+        shader = new Shader("resources/vert.glsl","resources/frag.glsl");
         GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        
+        vertexBufferObject = GL.GenBuffer();
+        GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
+        GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+        
+        GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+        GL.EnableVertexAttribArray(0);
+        
+        vertexArrayObject = GL.GenVertexArray();
+        GL.BindVertexArray(vertexArrayObject);
+        
+        
+
+
+        shader.Use();
 
         //Code goes here
     }
@@ -55,9 +69,16 @@ class Game : GameWindow
         base.OnRenderFrame(e);
 
         GL.Clear(ClearBufferMask.ColorBufferBit);
-
-        //Code goes here.
+        
+        shader.Use();
+        GL.BindVertexArray(vertexArrayObject);
+        GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
 
         SwapBuffers();
+    }
+
+    protected override void OnUnload()
+    {
+        shader.Dispose();
     }
 }
