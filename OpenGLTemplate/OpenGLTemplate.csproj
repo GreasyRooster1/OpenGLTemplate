@@ -10,11 +10,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-    <None Include="Shaders/**" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="resources/**" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="OpenTK" Version="4.9.3" />
     </ItemGroup>
 
+    <ItemGroup>
+        <None Update="resources\*.*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 </Project>
