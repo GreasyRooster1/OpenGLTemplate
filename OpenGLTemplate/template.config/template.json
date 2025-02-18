@@ -1,0 +1,12 @@
+﻿{
+  "author": "Dillon Wilson",
+  "name": "OpenGL Template",
+  "description": "Template for OpenGL using OpenTK",
+  "identity": "DillonWilson.OpenGL.1.0",
+  "shortName": "opengltemplate",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "OpenGLTemplate"
+}
