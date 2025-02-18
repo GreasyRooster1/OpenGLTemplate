@@ -1,4 +1,7 @@
-﻿namespace OpenGLTest;
+﻿using System;
+using System.IO;
+
+namespace OpenGLTest;
 
 using OpenTK.Graphics.OpenGL4;
 
