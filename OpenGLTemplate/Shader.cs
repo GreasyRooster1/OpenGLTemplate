@@ -13,6 +13,8 @@ public class Shader: IDisposable
 
         string fragmentShaderSource = File.ReadAllText(fragmentPath);
         
+        Console.WriteLine(vertexShaderSource);
+        
         int vertexShader = GL.CreateShader(ShaderType.VertexShader);
         GL.ShaderSource(vertexShader, vertexShaderSource);
 
@@ -82,7 +84,7 @@ public class Shader: IDisposable
     public void Dispose()
     {
         Dispose(true);
-        GC.SuppressFinalize(this);
+        GC.SuppressFinalize(this);  
     }
     
 }

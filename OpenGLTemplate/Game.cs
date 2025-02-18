@@ -7,15 +7,15 @@ namespace OpenGLTest;
 
 class Game : GameWindow
 {
-    private readonly float[] vertices =
+    private readonly float[] _vertices =
     {
         -0.5f, -0.5f, 0.0f, //Bottom-left vertex
         0.5f, -0.5f, 0.0f, //Bottom-right vertex
         0.0f, 0.5f, 0.0f //Top vertex
     };
-    int vertexBufferObject;
-    int vertexArrayObject;
-    Shader shader;
+    private int _vertexBufferObject;
+    private int _vertexArrayObject;
+    private Shader _shader;
 
     public Game(int width, int height, string title) : base(GameWindowSettings.Default,
         new NativeWindowSettings() { Size = (width, height), Title = title })
@@ -26,25 +26,24 @@ class Game : GameWindow
     {
         base.OnLoad();
 
-        shader = new Shader("resources/vert.glsl","resources/frag.glsl");
         GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        
-        vertexBufferObject = GL.GenBuffer();
-        GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
-        GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
-        
+
+        _vertexBufferObject = GL.GenBuffer();
+
+        GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
+
+        GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Length * sizeof(float), _vertices, BufferUsageHint.StaticDraw);
+
+        _vertexArrayObject = GL.GenVertexArray();
+        GL.BindVertexArray(_vertexArrayObject);
+
         GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+
         GL.EnableVertexAttribArray(0);
-        
-        vertexArrayObject = GL.GenVertexArray();
-        GL.BindVertexArray(vertexArrayObject);
-        
-        
 
+        _shader = new Shader("resources/shader.vert", "resources/shader.frag");
 
-        shader.Use();
-
-        //Code goes here
+        _shader.Use();
     }
     
     protected override void OnFramebufferResize(FramebufferResizeEventArgs e)
@@ -70,8 +69,8 @@ class Game : GameWindow
 
         GL.Clear(ClearBufferMask.ColorBufferBit);
         
-        shader.Use();
-        GL.BindVertexArray(vertexArrayObject);
+        _shader.Use();
+        GL.BindVertexArray(_vertexArrayObject);
         GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
 
         SwapBuffers();
@@ -79,6 +78,6 @@ class Game : GameWindow
 
     protected override void OnUnload()
     {
-        shader.Dispose();
+        _shader.Dispose();
     }
 }
